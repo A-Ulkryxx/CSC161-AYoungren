@@ -45,25 +45,14 @@ public class CreditCardValidationProc {
 		int digValue;
 		//int tester; //debug value test
 		
-		if(getSize(number) % 2 == 0)
-		{
-			for(int i = (getSize(number)-2); i >= 0; i-=2)
-			{
-				//tester = getDigit(number[i] * 2); //debug value test
-				digValue = getDigit(number[i] * 2);
-				sum += digValue;
-			}
 		
-		}
-		else
+		for(int i = (getSize(number)-2); i >= 0; i-=2)
 		{
-			for(int i = (getSize(number)-1); i >= 0; i-=2)
-			{
-				//tester = getDigit(number[i]); //debug value test
-				digValue = getDigit(number[i] * 2) ;
-				sum += digValue;
-			}	
+			//tester = getDigit(number[i] * 2); //debug value test
+			digValue = getDigit(number[i] * 2);
+			sum += digValue;
 		}
+		
 		return sum;
 	}
 	
@@ -84,26 +73,14 @@ public class CreditCardValidationProc {
 			case 10:
 				digit = 1;
 				break;
-			case 11:
-				digit = 2;
-				break;
 			case 12:
 				digit = 3;
-				break;
-			case 13:
-				digit = 4;
 				break;
 			case 14:
 				digit = 5;
 				break;
-			case 15:
-				digit = 6;
-				break;
 			case 16:
 				digit = 7;
-				break;
-			case 17:
-				digit = 8;
 				break;
 			case 18:
 				digit = 9;
@@ -119,26 +96,15 @@ public class CreditCardValidationProc {
 	public static int sumOfOddPlace(int[] number)
 	{
 		int sum = 0;
-		
 		//int tester; //debug value test
 		
-		if(getSize(number) % 2 != 0)
+		for(int i = (getSize(number)-1); i >= 0; i-=2)
 		{
-			for(int i = (getSize(number)-2); i >= 0; i-=2)
-			{
-				//tester = number[i]; //debug value test
-				sum = sum + number[i];
-			}
+			//tester = number[i]; //debug value test
+			sum = sum + number[i];
+		}
 		
-		}
-		else
-		{
-			for(int i = (getSize(number)-1); i >= 0; i-=2)
-			{
-				//tester = number[i]; //debug value test
-				sum = sum + number[i];
-			}	
-		}
+		
 		return sum;
 	}
 		//Return true if the digit 'd' is a prefix for number
@@ -168,13 +134,25 @@ public class CreditCardValidationProc {
 		//number of digits in number
 	public static long getPrefix(int[] number, int k)
 	{
-		String amexPrefix;
 		long prefixLong = 0;
 		if(number.length > k)
 		{	
+			if(number[0] == 3)
+			{
+				if (number[1] == 7)
+				{
+					prefixLong = 37;
+				}
+				else
+				{;}
+			}
+			else
+			{
 			prefixLong = number[0];
+			}
 		}
 		else{;}
+		
 		return prefixLong;
 	}
 	
