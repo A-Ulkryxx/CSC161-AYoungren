@@ -33,7 +33,7 @@ public class CreditCardValidationProc {
 	public static boolean isValid(int[] number)
 	{
 		return (getSize(number) >= 13 && getSize(number) <= 16) && (prefixMatched(number, 4)
-		         || prefixMatched(number, 5) || prefixMatched(number, 37) || prefixMatched(number, 6))
+		         || prefixMatched(number, 5) || prefixMatched(number, 3) || prefixMatched(number, 6))
 		         && ((sumOfDoubleEvenPlace(number) + sumOfOddPlace(number)) % 10 == 0);
 		
 	}
@@ -135,24 +135,26 @@ public class CreditCardValidationProc {
 	public static long getPrefix(int[] number, int k)
 	{
 		long prefixLong = 0;
-		if(number.length > k)
-		{	
-			if(number[0] == 3)
+		
+		if (number.length > k) 
+		{
+			if (number[0] == 3)
 			{
 				if (number[1] == 7)
 				{
-					prefixLong = 37;
+					prefixLong = 3;
 				}
-				else
+				else 
 				{;}
-			}
+			} 
 			else
 			{
-			prefixLong = number[0];
+				prefixLong = number[0];
 			}
-		}
-		else{;}
-		
+				
+		} 
+		else {;}
+
 		return prefixLong;
 	}
 	
