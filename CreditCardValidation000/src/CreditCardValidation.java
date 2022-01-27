@@ -1,4 +1,3 @@
-import java.util.Scanner;
 
 public class CreditCardValidation 
 {
@@ -7,8 +6,6 @@ public class CreditCardValidation
 
 	public CreditCardValidation(String inNum) 
 	{
-
-		System.out.println("Input Credit Card Number");
 		number = new int[inNum.length()];
 
 		for (int i = 0; i < inNum.length(); i++) 
@@ -118,22 +115,26 @@ public class CreditCardValidation
 
 		// Return the first 'k' number of digits from number. If the
 		// number of digits in number
-	public long getPrefix(int k) {
+	public long getPrefix(int k) 
+	{
 		long prefixLong = 0;
+		
 		if (number.length > k) 
 		{
 			if (number[0] == 3)
 			{
 				if (number[1] == 7)
 				{
-					prefixLong = 37;
+					prefixLong = 3;
 				}
-				else {;}
+				else 
+				{;}
 			} 
-			else 
+			else
 			{
 				prefixLong = number[0];
 			}
+				
 		} 
 		else {;}
 

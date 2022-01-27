@@ -33,7 +33,7 @@ public class CreditCardValidationProc {
 	public static boolean isValid(int[] number)
 	{
 		return (getSize(number) >= 13 && getSize(number) <= 16) && (prefixMatched(number, 4)
-		         || prefixMatched(number, 5) || prefixMatched(number, 3) || prefixMatched(number, 6))
+		         || prefixMatched(number, 5) || prefixMatched(number, 37) || prefixMatched(number, 6))
 		         && ((sumOfDoubleEvenPlace(number) + sumOfOddPlace(number)) % 10 == 0);
 		
 	}
