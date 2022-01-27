@@ -39,7 +39,7 @@ public class CreditCardValidationProc {
 	}
 	
 		//Add all single-digit numbers of valid card
-	public static int sumOfDoubleEvenPlace(int[] number)
+	private static int sumOfDoubleEvenPlace(int[] number)
 	{
 		int sum = 0;
 		int digValue;
@@ -58,7 +58,7 @@ public class CreditCardValidationProc {
 	
 		//Return this number if it is a single digit, otherwise,
 		//return the sum of the two digits
-	public static int getDigit(int number)
+	private static int getDigit(int number)
 	{
 		int digit;
 		digit = number;
@@ -70,30 +70,30 @@ public class CreditCardValidationProc {
 		{
 			switch(digit)
 			{
-			case 10:
-				digit = 1;
-				break;
-			case 12:
-				digit = 3;
-				break;
-			case 14:
-				digit = 5;
-				break;
-			case 16:
-				digit = 7;
-				break;
-			case 18:
-				digit = 9;
-				break;
-			default:
-				break;
+				case 10:
+					digit = 1;
+					break;
+				case 12:
+					digit = 3;
+					break;
+				case 14:
+					digit = 5;
+					break;
+				case 16:
+					digit = 7;
+					break;
+				case 18:
+					digit = 9;
+					break;
+				default:
+					break;
 			}
 		}
 		return digit;
 	}
 	
 		//Return sum of odd-place digits in number
-	public static int sumOfOddPlace(int[] number)
+	private static int sumOfOddPlace(int[] number)
 	{
 		int sum = 0;
 		//int tester; //debug value test
@@ -108,7 +108,7 @@ public class CreditCardValidationProc {
 		return sum;
 	}
 		//Return true if the digit 'd' is a prefix for number
-	public static boolean prefixMatched(int[] number, int d)
+	private static boolean prefixMatched(int[] number, int d)
 	{
 		if(getPrefix(number, d) == d )
 		{
@@ -121,7 +121,7 @@ public class CreditCardValidationProc {
 	}
 	
 		//Return the number of digits in 'd'
-	public static int getSize(int[] number)
+	private static int getSize(int[] number)
 	{
 		int cardLength;
 		//cardLength = (int) (Math.log10(number) + 1);

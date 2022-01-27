@@ -23,7 +23,7 @@ public class CreditCardValidation
 	}
 
 		// Add all single-digit numbers of valid card
-	public int sumOfDoubleEvenPlace() 
+	private int sumOfDoubleEvenPlace() 
 	{
 		int sum = 0;
 		int digValue;
@@ -41,7 +41,7 @@ public class CreditCardValidation
 
 		// Return this number if it is a single digit, otherwise,
 		// return the sum of the two digits
-	public int getDigit(int number) 
+	private int getDigit(int number) 
 	{
 		int digit;
 		digit = number;
@@ -53,30 +53,30 @@ public class CreditCardValidation
 		{
 			switch (digit)
 			{
-			case 10:
-				digit = 1;
-				break;
-			case 12:
-				digit = 3;
-				break;
-			case 14:
-				digit = 5;
-				break;
-			case 16:
-				digit = 7;
-				break;
-			case 18:
-				digit = 9;
-				break;
-			default:
-				break;
+				case 10:
+					digit = 1;
+					break;
+				case 12:
+					digit = 3;
+					break;
+				case 14:
+					digit = 5;
+					break;
+				case 16:
+					digit = 7;
+					break;
+				case 18:
+					digit = 9;
+					break;
+				default:
+					break;
 			}
 		}
 		return digit;
 	}
 
 		// Return sum of odd-place digits in number
-	public int sumOfOddPlace()
+	private int sumOfOddPlace()
 	{
 		int sum = 0;
 		// int tester; //debug value test
@@ -91,7 +91,7 @@ public class CreditCardValidation
 	}
 
 		// Return true if the digit 'd' is a prefix for number
-	public boolean prefixMatched(int d)
+	private boolean prefixMatched(int d)
 	{
 		if (getPrefix(d) == d) 
 		{
@@ -104,7 +104,7 @@ public class CreditCardValidation
 	}
 
 		// Return the number of digits in 'd'
-	public int getSize()
+	private int getSize()
 	{
 		int cardLength;
 		// cardLength = (int) (Math.log10(number) + 1);
