@@ -40,8 +40,8 @@ public class BasePlusCommissionEmployee extends CommissionEmployee {
 
 	@Override
 	public String toString() {
-		return  "BasePlusCommissionEmployee:\nFirst Name = " + firstName + ",\nLast Name = " + lastName +"\nBasePay = " + basePay + ",\nGross Sales = " 
-				+ grossSales + ",\nCommission Rate = "+ commissionRate + ",\nSocial = "+ socialSecNum + "\n";
+		return  "BasePlusCommissionEmployee:\nFirst Name = " + firstName + ",\nLast Name = " + lastName + ",\nSocial = "+ socialSecNum + 
+				"\nBasePay = " + basePay + ",\nGross Sales = " + grossSales + ",\nCommission Rate = "+ commissionRate  + "\n";
 	}
 
 	

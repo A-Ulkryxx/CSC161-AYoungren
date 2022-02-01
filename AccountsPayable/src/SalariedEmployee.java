@@ -41,7 +41,7 @@ public class SalariedEmployee extends Employee
 	public String toString() 
 	{
 		return "Salaried Employee:\nFirst Name = " + firstName + ",\nLast Name = " + lastName
-				+ "\nWeekly Salary = " + weeklySalary + ",\nSocial = " + socialSecNum + "\n";
+				 + ",\nSocial = " + socialSecNum +  "\nWeekly Salary = " + weeklySalary +"\n";
 	}
 	
 }

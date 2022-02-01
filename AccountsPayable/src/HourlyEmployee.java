@@ -46,8 +46,8 @@ public class HourlyEmployee extends Employee
 	@Override
 	public String toString()
 	{
-		return "Hourly Employee:\nFirst Name = " + firstName + ",\nLast Name = " + lastName + ",\nSocial = " + socialSecNum + 
-				"\nPayment Amount = " + (hourlyWage * hours) +"\n";
+		return "Hourly Employee:\nFirst Name = " + firstName + ",\nLast Name = " + lastName + ",\nSocial = " + socialSecNum + "\nHours = " 
+				+ hours + "\nHourly Wage = " + hourlyWage + "\nPayment Amount = " + (hourlyWage * hours) +"\n";
 	}
 
 }
