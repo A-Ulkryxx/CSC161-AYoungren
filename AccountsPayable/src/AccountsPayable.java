@@ -40,8 +40,9 @@ public class AccountsPayable
 		float commissionRate;
 		double basePay;
 		int employeeType;
-
-		for (int i = 0; i < 6; i++) 
+		int i;
+		
+		for (i = 0; i < 6; i++) 
 		{
 			System.out.println("What is the first name of employee " + (i + 1) + "?");
 			firstName = input.next();
@@ -88,7 +89,6 @@ public class AccountsPayable
 					grossSales = input.nextFloat();
 					System.out.println("What is " + firstName + " " + lastName + "'s commission rate?");
 					commissionRate = input.nextFloat();
-
 					payableEmployees[i] = new BasePlusCommissionEmployee(grossSales, commissionRate, basePay, firstName,
 							lastName, socialSecNum);
 				}
@@ -99,26 +99,25 @@ public class AccountsPayable
 				}
 			} while ((employeeType != 1) && (employeeType != 2) && (employeeType != 3) && (employeeType != 4));
 		}
+		
 
 		for (int j = 0; j < 6; j++) 
 		{
-			System.out.println(payableEmployees[j].getFirstName() + " " + payableEmployees[j].getLastName() + ": $"
-					+ payableEmployees[j].getPaymentAmount());
+			getEmployeeInfo(payableEmployees[j]);
 		}
 
 		for (int u = 0; u < 6; u++) 
 		{
 			if (payableEmployees[u] instanceof BasePlusCommissionEmployee)
 			{
-				((BasePlusCommissionEmployee) payableEmployees[u]).setBasePay( ((BasePlusCommissionEmployee) payableEmployees[u]).getBasePay()
-								+ 0.1);
+				((CommissionEmployee) payableEmployees[u]).setCommissionRate((float) (((CommissionEmployee) payableEmployees[u]).getCommissionRate() + 0.1));
 			}
 		}
 
 		for (int p = 0; p < 6; p++) 
 		{
-			System.out.println(payableEmployees[p].getFirstName() + " " + payableEmployees[p].getLastName() + ": $"
-					+ payableEmployees[p].getPaymentAmount());
+			getEmployeeInformation(payableEmployees[p]);
+			System.out.println();
 		}
 
 	}
@@ -132,33 +131,26 @@ public class AccountsPayable
 	{
 		if (employee instanceof SalariedEmployee) 
 		{
-			System.out.println("Salaried Employee - First Name:" + employee.getFirstName() + "Last Name: "
-					+ employee.getLastName() + "\nSSN: " + employee.getSocialSecNum() + "\nWeekly Salary: "
-					+ ((SalariedEmployee) employee).getWeeklySalary());
+			System.out.println("Salaried Employee - \nFirst Name: " + employee.getFirstName() + "\nLast Name: "
+					+ employee.getLastName() +"\nPayment Amount: $" + ((SalariedEmployee) employee).getPaymentAmount());
 		} 
 		else if (employee instanceof HourlyEmployee) 
 		{
-			System.out.println("Salaried Employee - First Name:" + employee.getFirstName() + "Last Name: "
-					+ employee.getLastName() + "\nSSN: " + employee.getSocialSecNum() + "\nHours: "
-					+ ((HourlyEmployee) employee).getHours() + "\nHourly Wage: "
-					+ ((HourlyEmployee) employee).getHourlyWage());
+			System.out.println("Hourly Employee - \nFirst Name: " + employee.getFirstName() + "\nLast Name: "
+					+ employee.getLastName() + "\nPayment Amount: $" + ((HourlyEmployee) employee).getPaymentAmount());
+		} 
+		else if (employee instanceof BasePlusCommissionEmployee)
+		{
+			System.out.println("Base Pay Plus Commission Employee - \nFirst Name: " + employee.getFirstName() + "\nLast Name: "
+					+ employee.getLastName() + "\nPayment Amount: $" + ((BasePlusCommissionEmployee) employee).getPaymentAmount());
 		} 
 		else if (employee instanceof CommissionEmployee)
 		{
-			System.out.println("Salaried Employee - First Name:" + employee.getFirstName() + "Last Name: "
-					+ employee.getLastName() + "\nSSN: " + employee.getSocialSecNum() + "\nGross Sales: "
-					+ ((CommissionEmployee) employee).getGrossSales() + "\nCommission Rate: "
-					+ ((CommissionEmployee) employee).getCommissionRate());
+			System.out.println("Commission Employee - \nFirst Name: " + employee.getFirstName() + "\nLast Name: "
+					+ employee.getLastName() + "\nPayment Amount: $" + ((CommissionEmployee) employee).getPaymentAmount() );
 		}
-		else if (employee instanceof BasePlusCommissionEmployee)
-		{
-			System.out.println("Salaried Employee - First Name:" + employee.getFirstName() + "Last Name: "
-					+ employee.getLastName() + "\nSSN: " + employee.getSocialSecNum() + "\nGross Sales: "
-					+ ((CommissionEmployee) employee).getGrossSales() + "\nCommission Rate: "
-					+ ((CommissionEmployee) employee).getCommissionRate() + "\nBase Pay: "
-					+ ((BasePlusCommissionEmployee) employee).getBasePay());
-		} 
 		else 
 		{;}
 	}
+	
 }

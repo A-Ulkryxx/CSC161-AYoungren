@@ -9,8 +9,8 @@ The payment amount will be the hourly wage x hours.
  */
 public class HourlyEmployee extends Employee
 {
-	public double hourlyWage;
-	public float hours;
+	protected double hourlyWage;
+	protected float hours;
 	
 	public HourlyEmployee(double hourlyWage, float hours, String firstName, String lastName, long socialSecNum) 
 	{
@@ -46,8 +46,8 @@ public class HourlyEmployee extends Employee
 	@Override
 	public String toString()
 	{
-		return "Employee [First Name = " + firstName + ",\nLast Name = " + lastName + ",\nSocial =" + socialSecNum + 
-				"\nPayment Amount =" + (hourlyWage * hours) +"]\n";
+		return "Hourly Employee:\nFirst Name = " + firstName + ",\nLast Name = " + lastName + ",\nSocial = " + socialSecNum + 
+				"\nPayment Amount = " + (hourlyWage * hours) +"\n";
 	}
 
 }

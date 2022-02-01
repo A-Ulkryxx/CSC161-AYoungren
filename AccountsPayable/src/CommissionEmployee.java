@@ -8,8 +8,8 @@ The payment amount will be the gross sales x commission rate.
  */
 public class CommissionEmployee extends Employee
 {
-	public double grossSales;
-	public float commissionRate;
+	protected double grossSales;
+	protected float commissionRate;
 	
 	public CommissionEmployee(double grossSales, float commissionRate, String firstName, String lastName, long socialSecNum) 
 	{
@@ -21,9 +21,10 @@ public class CommissionEmployee extends Employee
 	@Override
 	public double getPaymentAmount()
 	{
+		double roundAmount;
 		double amount = this.grossSales * this.commissionRate;
-		amount = Math.round(amount*100)/100;
-		return amount;
+		roundAmount = Math.round(amount*100)/100;
+		return roundAmount;
 	}
 	
 	public double getGrossSales() 
@@ -34,7 +35,7 @@ public class CommissionEmployee extends Employee
 	{
 		this.grossSales = grossSales;
 	}
-	public double getCommissionRate() 
+	public float getCommissionRate() 
 	{
 		return commissionRate;
 	}
@@ -46,7 +47,7 @@ public class CommissionEmployee extends Employee
 	@Override
 	public String toString() 
 	{
-		return "Employee [First Name = " + firstName + ",\nLast Name = " + lastName + ",\nSocial =" + socialSecNum + 
-				"\nGross Sales =" + grossSales + "\nCommission Rate =" + commissionRate + "]\n";
+		return "Commission Employee:\nFirst Name = " + firstName + ",\nLast Name = " + lastName + ",\nSocial = " + socialSecNum + 
+				"\nGross Sales = " + grossSales + "\nCommission Rate = " + commissionRate + "\n";
 	}
 }

@@ -11,7 +11,7 @@ super class.
  */
 public class BasePlusCommissionEmployee extends CommissionEmployee {
 
-	public double basePay;
+	protected double basePay;
 	
 	public BasePlusCommissionEmployee(double grossSales, float commissionRate, double base, String firstName, String lastName, long socialSecNum) 
 	{
@@ -22,9 +22,10 @@ public class BasePlusCommissionEmployee extends CommissionEmployee {
 	@Override
 	public double getPaymentAmount()
 	{
-		double amount = basePay + (this.grossSales * this.commissionRate);
-		amount = Math.round(amount*100)/100;
-		return amount;
+		double amount = this.basePay + (this.grossSales * this.commissionRate);
+		double roundAmount;
+		roundAmount = Math.round(amount*100)/100;
+		return roundAmount;
 	}
 	
 	public double getBasePay() 
@@ -39,9 +40,8 @@ public class BasePlusCommissionEmployee extends CommissionEmployee {
 
 	@Override
 	public String toString() {
-		return "BasePlusCommissionEmployee [ BasePay: " + basePay + ",\nGross Sales: " + grossSales + ",\n Commission Rate: "
-				+ commissionRate + ",\nFirst Name:" + firstName + ",\nLast Name: " + lastName + ",\nSocial: "
-				+ socialSecNum + "]\n";
+		return  "BasePlusCommissionEmployee:\nFirst Name = " + firstName + ",\nLast Name = " + lastName +"\nBasePay = " + basePay + ",\nGross Sales = " 
+				+ grossSales + ",\nCommission Rate = "+ commissionRate + ",\nSocial = "+ socialSecNum + "\n";
 	}
 
 	

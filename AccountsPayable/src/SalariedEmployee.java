@@ -9,7 +9,7 @@ The payment amount will be the weekly salary.
  */
 public class SalariedEmployee extends Employee
 {
-	public double weeklySalary;
+	protected double weeklySalary;
 	
 	public SalariedEmployee(double payment, String firstName, String lastName, long socialSecNum)
 	{
@@ -40,8 +40,8 @@ public class SalariedEmployee extends Employee
 	@Override
 	public String toString() 
 	{
-		return "SalariedEmployee [Weekly Salary =" + weeklySalary + ",\nFirst Name =" + firstName 
-				+ ",\nLast Name =" + lastName + ",\nSocial =" + socialSecNum + "]";
+		return "Salaried Employee:\nFirst Name = " + firstName + ",\nLast Name = " + lastName
+				+ "\nWeekly Salary = " + weeklySalary + ",\nSocial = " + socialSecNum + "\n";
 	}
 	
 }

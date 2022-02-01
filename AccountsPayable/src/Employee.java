@@ -2,9 +2,9 @@
 public class Employee
 {
 
-	public String firstName;
-	public String lastName;
-	public long socialSecNum;
+	protected String firstName;
+	protected String lastName;
+	protected long socialSecNum;
 	
 	public Employee()
 	{
@@ -62,7 +62,7 @@ public class Employee
 	@Override
 	public String toString() 
 	{
-		return "Employee [First Name = " + firstName + ",\n Last Name = " + lastName + ",\n Social =" + socialSecNum + "]\n";
+		return "Employee\nFirst Name = " + firstName + ",\nLast Name = " + lastName + ",\nSocial =" + socialSecNum + "\n";
 	}
 	
 	
