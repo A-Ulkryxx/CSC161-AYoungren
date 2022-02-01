@@ -120,6 +120,7 @@ public class AccountsPayable
 			System.out.println();
 		}
 
+		input.close();
 	}
 
 	public static void getEmployeeInfo(Employee employee) 

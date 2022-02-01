@@ -27,6 +27,8 @@ public class CreditCardValidationProc {
 //		System.out.println(sumOfOddPlace(number));
 //		System.out.println(prefixMatched(number, 37));
 //		System.out.println(prefixMatched(number, 4));
+		
+		input.close();
 	}
 
 		//Return true if the card number is valid

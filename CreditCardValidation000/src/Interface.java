@@ -15,5 +15,7 @@ public class Interface {
 		cnumber = new CreditCardValidation(inNum);
 		
 		System.out.println("Credit Card Validity: " + cnumber.isValid());
-	}
+		
+		input.close();
+		}
 }
