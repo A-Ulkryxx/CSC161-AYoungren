@@ -110,7 +110,8 @@ public class AccountsPayable
 		{
 			if (payableEmployees[u] instanceof BasePlusCommissionEmployee)
 			{
-				((CommissionEmployee) payableEmployees[u]).setCommissionRate((float) (((CommissionEmployee) payableEmployees[u]).getCommissionRate() + 0.1));
+				((BasePlusCommissionEmployee) payableEmployees[u]).setBasePay((float) ((((BasePlusCommissionEmployee) payableEmployees[u]).getBasePay() * 0.1))
+						+ ((BasePlusCommissionEmployee) payableEmployees[u]).getBasePay());
 			}
 		}
 

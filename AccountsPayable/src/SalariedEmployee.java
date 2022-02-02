@@ -14,7 +14,7 @@ public class SalariedEmployee extends Employee
 	public SalariedEmployee(double payment, String firstName, String lastName, long socialSecNum)
 	{
 		super(firstName, lastName, socialSecNum);
-		weeklySalary = payment;
+		this.weeklySalary = payment;
 	}
 
 	@Override
