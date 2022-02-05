@@ -1,11 +1,12 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.FileOutputStream;
 
 public class FileWriter {
 
-	public static void main(String[] args) //throws IOException 
+	public static void main(String[] args) throws FileNotFoundException //throws IOException 
 	{
 		File myFile = new File("filewritetest.txt");
 		PrintWriter printWriter = null;
@@ -31,7 +32,7 @@ public class FileWriter {
 		}
 				// two lines will need to be moved to the "try" statement
 		// printWriter = new PrintWriter(myFile.getName());
-		//printWriter = new PrintWriter(new FileOutputStream(myFile.getName(), false));  // true: adds to file ----- false: overwrites file
+		printWriter = new PrintWriter(new FileOutputStream(myFile.getName(), true));  // true: adds to file ----- false: overwrites file
 		
 		printWriter.println("The moon is full today. It is an auspicious day!");
 		printWriter.println("I am feeling great today!");

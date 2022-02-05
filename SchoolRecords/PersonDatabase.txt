@@ -1,0 +1,14 @@
+Staff: Name:Buehler, Address: 2020 Farmers Dr., Phone Number:909-200-5050, Email: staff2@school.edu, Title: Custodian, Office: FM-120, Salary: 30000.0, Date Hired: 6/22/2016
+
+Student - Name: Austin Youngren, Address: 1234 Road St., Phone Number: 900-800-7000, Email: stud1@studentemail.edu Status: Sophmore
+
+Student - Name: Mak Grettle, Address: 4321 Street Rd., Phone Number: 909-808-7007, Email: stud2@studentemail.edu Status: Senior
+
+Faculty - Name:Menezes, Rank: Junior, Address: 8752 Sun Ct.,  Phone Number:200-500-9898, Email: prof1@school.edu, Office: CF-202, Office Hours: 11:00am - 1:00pm, Salary: 35000.0, Date Hired: 7/21/2021
+
+Faculty - Name:Smith, Rank: Senior, Address: 879 Moon Ave.,  Phone Number:222-555-8888, Email: prof2@school.edu, Office: CM-115, Office Hours: 2:00pm - 4:00pm, Salary: 45000.0, Date Hired: 12/19/2015
+
+Staff: Name:Overbey, Address: 7777 Shire Blvd., Phone Number:200-888-7777, Email: staff1@school.edu, Title: Groundskeeper, Office: FM-101, Salary: 40000.0, Date Hired: 01/06/2002
+
+Staff: Name:Buehler, Address: 2020 Farmers Dr., Phone Number:909-200-5050, Email: staff2@school.edu, Title: Custodian, Office: FM-120, Salary: 30000.0, Date Hired: 6/22/2016
+

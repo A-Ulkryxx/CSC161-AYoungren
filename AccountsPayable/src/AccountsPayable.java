@@ -29,7 +29,7 @@ public class AccountsPayable
 	public static void main(String[] args) 
 	{
 		input = new Scanner(System.in);
-		Employee[] payableEmployees = new Employee[6];
+		Employee[] payableEmployees;
 		String firstName;
 		String lastName;
 		long socialSecNum;
@@ -41,8 +41,13 @@ public class AccountsPayable
 		double basePay;
 		int employeeType;
 		int i;
+		int numOfEmp;
 		
-		for (i = 0; i < 6; i++) 
+		System.out.println("How many employees are there?");
+		numOfEmp = input.nextInt();
+		payableEmployees = new Employee[numOfEmp];
+		
+		for (i = 0; i < numOfEmp; i++) 
 		{
 			System.out.println("What is the first name of employee " + (i + 1) + "?");
 			firstName = input.next();
@@ -101,12 +106,12 @@ public class AccountsPayable
 		}
 		
 
-		for (int j = 0; j < 6; j++) 
+		for (int j = 0; j < numOfEmp; j++) 
 		{
 			getEmployeeInfo(payableEmployees[j]);
 		}
 
-		for (int u = 0; u < 6; u++) 
+		for (int u = 0; u < numOfEmp; u++) 
 		{
 			if (payableEmployees[u] instanceof BasePlusCommissionEmployee)
 			{
@@ -115,7 +120,7 @@ public class AccountsPayable
 			}
 		}
 
-		for (int p = 0; p < 6; p++) 
+		for (int p = 0; p < numOfEmp; p++) 
 		{
 			getEmployeeInformation(payableEmployees[p]);
 			System.out.println();
