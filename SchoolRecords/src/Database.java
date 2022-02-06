@@ -14,7 +14,7 @@ public class Database
 
 	private final java.io.File outFile = new File("PersonDatabase.txt");;
 	private PrintWriter printWriter = null;
-	private PrintWriter clearFile = null;
+	
 	void writePerson(Person person) throws IOException
 	{
 		

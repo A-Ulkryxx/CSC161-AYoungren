@@ -39,6 +39,12 @@ public class TestSchoolRecords
 			System.out.println(dataInfo.get(i));
 		}
 		
+		System.out.println(stud1.toString());
+		System.out.println(stud2.toString());
+		System.out.println(prof1.toString());
+		System.out.println(prof2.toString());
+		System.out.println(staff1.toString());
+		System.out.println(staff2.toString());
 		
 	}
 }
