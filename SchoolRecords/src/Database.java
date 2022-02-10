@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileOutputStream;
 
-/*
- * Create a method in Database called readDatabase. This method should read all the
-persons from the PersonDatabase file and return an ArrayList of Person.
+/** Logs person data into a text file
+ * Also pulls data from text file to read into program
+ * 
+ * @author Austin Youngren
  */
 public class Database
 {
@@ -15,6 +16,11 @@ public class Database
 	private final java.io.File outFile = new File("PersonDatabase.txt");;
 	private PrintWriter printWriter = null;
 	
+	/**
+	 * Writes person data to text file
+	 * @param person - person object
+	 * @throws IOException
+	 */
 	void writePerson(Person person) throws IOException
 	{
 		
@@ -47,6 +53,10 @@ public class Database
 		printWriter.close();
 	}
 	
+	/**
+	 * Reads text file for person data into an Array List
+	 * @return dataArr - Array list of person data
+	 */
 	public ArrayList<String> readDatabase()
 	{
 		File readFile = null;
