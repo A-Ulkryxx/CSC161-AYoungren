@@ -13,7 +13,7 @@ import java.io.FileOutputStream;
 public class Database
 {
 		//You said this is ok in meeting
-	private File OUTFILE = new File("PersonDatabase.txt");
+	private final File OUTFILE = new File("PersonDatabase.txt");
 	private static PrintWriter printWriter = null;
 	
 	/**
