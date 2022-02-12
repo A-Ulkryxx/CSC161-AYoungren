@@ -40,8 +40,7 @@ public class Employee extends Person
 	public String getPerson()
 	{
 		String personInfo;
-		personInfo = "Staff - Name:" + name + ", Address: " + address + ", Phone Number:" + phoneNumber 
-					+ ", Email: " + email + ", Office: " + office + ", Salary: " + salary + ", Date Hired: " + dateHired + "\n";
+		personInfo = "Staff;" + name + ";" + address + ";" + phoneNumber + ";" + email + ";" + office + ";" + salary + ";" + dateHired + ";";
 		return personInfo;
 	}
 	

@@ -34,8 +34,7 @@ public class Person
 	public String getPerson()
 	{
 		String personInfo;
-		personInfo =  "Person - Name:" + name + ", Address: " + address + ", Phone Number: " + phoneNumber + ", Email: " + email
-				+ "\n";
+		personInfo = "Person;" + name + ";" + address + ";" + phoneNumber + ";" + email + ";";
 		return personInfo;
 	}
 	
@@ -71,7 +70,6 @@ public class Person
 		this.address = address;
 	}
 
-
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -80,7 +78,6 @@ public class Person
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-
 
 	public String getEmail() {
 		return email;

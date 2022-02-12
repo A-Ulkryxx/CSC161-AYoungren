@@ -13,7 +13,7 @@ public class TestSchoolRecords
 	public static void main(String[] args) throws IOException 
 	{
 		Database rosterData = new Database();
-		ArrayList<String> dataInfo = new ArrayList<String>();
+		ArrayList<Person> dataInfo = new ArrayList<Person>();
 		
 		Student stud1 = new Student("Austin Youngren", "1234 Road St.", "900-800-7000", "stud1@studentemail.edu", 2 );
 		Student stud2 = new Student("Mak Grettle", "4321 Street Rd.", "909-808-7007", "stud2@studentemail.edu", 4 );
@@ -34,17 +34,9 @@ public class TestSchoolRecords
 		
 		dataInfo = rosterData.readDatabase();
 		
-		for(int i = 0; i < dataInfo.size(); i++)
+		for(Person roster: dataInfo)
 		{
-			System.out.println(dataInfo.get(i));
+			System.out.println(roster.toString());
 		}
-		
-		System.out.println(stud1.toString());
-		System.out.println(stud2.toString());
-		System.out.println(prof1.toString());
-		System.out.println(prof2.toString());
-		System.out.println(staff1.toString());
-		System.out.println(staff2.toString());
-		
 	}
 }

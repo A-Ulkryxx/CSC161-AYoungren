@@ -12,28 +12,28 @@ import java.io.FileOutputStream;
  */
 public class Database
 {
-
-	private final java.io.File outFile = new File("PersonDatabase.txt");;
-	private PrintWriter printWriter = null;
+		//You said this is ok in meeting
+	private File OUTFILE = new File("PersonDatabase.txt");
+	private static PrintWriter printWriter = null;
 	
 	/**
 	 * Writes person data to text file
 	 * @param person - person object
 	 * @throws IOException
 	 */
-	void writePerson(Person person) throws IOException
+	public void writePerson(Person person) throws IOException
 	{
 		
 		String personData;
 		try {
 			
-			if (!outFile.exists())
+			if (!OUTFILE.exists())
 			{
-				if(outFile.createNewFile())
+				if(OUTFILE.createNewFile())
 				{
-					System.out.println("New file create: " + outFile.getName());
+					System.out.println("New file create: " + OUTFILE.getName());
 				}
-				printWriter = new PrintWriter(new FileOutputStream(outFile.getName(), false));
+				printWriter = new PrintWriter(new FileOutputStream(OUTFILE.getName(), false));
 			}
 		}
 		catch(Exception e) //emergency purposes when exception thrown
@@ -42,13 +42,13 @@ public class Database
 			System.exit(-1);
 		}
 		
-		personData = person.getPerson();
-		printWriter = new PrintWriter(new FileOutputStream(outFile.getName(), true));
+		personData = person.getPerson() + "\n";
+		printWriter = new PrintWriter(new FileOutputStream(OUTFILE.getName(), true));
 		printWriter.println(personData);
 		
 		if( printWriter.checkError()) 
 		{
-			System.out.println("There were errors during the writing of the file " + outFile.getName());
+			System.out.println("There were errors during the writing of the file " + OUTFILE.getName());
 		}
 		printWriter.close();
 	}
@@ -57,11 +57,14 @@ public class Database
 	 * Reads text file for person data into an Array List
 	 * @return dataArr - Array list of person data
 	 */
-	public ArrayList<String> readDatabase()
+	public ArrayList<Person> readDatabase()
 	{
 		File readFile = null;
 		Scanner input = null;
-		ArrayList<String> dataArr = new ArrayList<String>();
+		String line;
+		String[] seperation;
+		ArrayList<Person> dataArr = new ArrayList<Person>();//FIXME
+		Person person;
 		
 		try {
 			readFile = new File("PersonDatabase.txt");
@@ -74,9 +77,27 @@ public class Database
 			System.exit(-1);
 		}
 		
-		while(input.hasNextLine())
+		while(input.hasNextLine())  //FIXME
 		{
-			dataArr.add(input.nextLine());
+			line = input.nextLine();
+			seperation = line.split(";");
+			if( seperation[0].equals("Student"))
+			{
+				person = new Student(seperation[1], seperation[2], seperation[3], seperation[4], Integer.parseInt(seperation[5]));	
+				dataArr.add(person);
+			}
+			else if(seperation[0].equals("Faculty"))
+			{
+				person = new Faculty(seperation[1], seperation[2], seperation[3], seperation[4], seperation[5], 
+										Double.parseDouble(seperation[6]), seperation[7], seperation[8], Integer.parseInt(seperation[9]));
+				dataArr.add(person);
+			}
+			else if(seperation[0].equals("Staff"))
+			{
+				person = new Staff(seperation[1], seperation[2], seperation[3], seperation[4], seperation[5], 
+						Double.parseDouble(seperation[6]), seperation[7], seperation[8]);	
+				dataArr.add(person);
+			}
 		}
 		
 		return dataArr;
