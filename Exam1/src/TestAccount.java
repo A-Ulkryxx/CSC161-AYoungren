@@ -15,7 +15,7 @@ public abstract class TestAccount {
 		System.out.println("Account: " + account.getId() + "\n Balance: " + account.getBalance() + "\n Monthly Interest: " + account.getMonthlyInterest() 
 							+ "\n Date the account was created "+account.getdateCreated());
 		System.out.println(account2.getAccountInfo());
-		account2.deposit(30);
+		account2.deposit(30); 	//account2.deposit(30, "Milk Money");
 		account2.deposit(40);
 		account2.deposit(50);
 		

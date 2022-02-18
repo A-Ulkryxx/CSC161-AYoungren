@@ -17,7 +17,7 @@ public class SavingsAccount extends Account
 		super(name, id, balance, annualInterestRate);
 	
 	}
-	@Override
+
 	public void withdraw(double amount)
 	{
 		Transaction newTransaction;
@@ -34,7 +34,6 @@ public class SavingsAccount extends Account
 		}
 	}
 	
-	@Override
 	public void deposit(double amount)
 	{
 		Transaction newTransaction;

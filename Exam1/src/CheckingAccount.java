@@ -21,8 +21,6 @@ public class CheckingAccount extends Account
 		this.overdraftLimit = overdraftLimit;
 	}
 
-
-	@Override
 	public void withdraw(double amount)
 	{
 		Transaction newTransaction;
@@ -40,7 +38,6 @@ public class CheckingAccount extends Account
 		}
 	}
 	
-	@Override
 	public void deposit(double amount)
 	{
 		Transaction newTransaction;

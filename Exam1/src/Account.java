@@ -9,7 +9,7 @@ public class Account
 		private double annualInterestRate;
 		private LocalDate dateCreated = LocalDate.now();
 		private String name;
-		private ArrayList<Transaction> accountTransactions = new ArrayList<Transaction>();
+		private ArrayList<Transaction> accountTransactions= new ArrayList<Transaction>();
 		
 		public Account()
 		{
@@ -18,7 +18,7 @@ public class Account
 			this.balance = 0;
 			this.annualInterestRate = 0;
 			this.dateCreated = LocalDate.now();
-			this.accountTransactions = new ArrayList<Transaction>();
+			
 		}
 
 		public Account(int id, double balance, double annualInterestRate)
@@ -27,7 +27,7 @@ public class Account
 			this.balance = balance;
 			this.annualInterestRate = annualInterestRate;
 			this.dateCreated = LocalDate.now();
-			this.accountTransactions = new ArrayList<Transaction>();
+			
 		}
 		
 		public Account(String name, int id, double balance, double annualInterestRate)
@@ -37,7 +37,7 @@ public class Account
 			this.balance = balance;
 			this.annualInterestRate = annualInterestRate;
 			this.dateCreated = LocalDate.now();
-			this.accountTransactions = new ArrayList<Transaction>();
+			
 		}
 		
 		public String getAccountInfo()
@@ -49,7 +49,6 @@ public class Account
 		public double getMonthlyInterestRate()
 		{
 			double monthlyInterestRate;
-			double monthlyInterest;
 			
 			monthlyInterestRate = this.annualInterestRate  / 12;
 			
@@ -83,7 +82,14 @@ public class Account
 			this.balance = this.balance + amount;
 		}
 
-		
+		public void printSummary() {
+			System.out.println(toString());
+			
+			for (Transaction transact: accountTransactions)
+			{
+				System.out.println(transact);
+			}
+		}
 		
 		public ArrayList<Transaction> getAccountTransactions() 
 		{
