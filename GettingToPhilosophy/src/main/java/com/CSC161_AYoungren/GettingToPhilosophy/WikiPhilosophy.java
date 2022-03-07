@@ -46,57 +46,70 @@ public class WikiPhilosophy {
      */
     public static void testConjecture(String destination, String source, int limit) throws IOException 
     {
-		String url = source;
-			
+		boolean linkFound = false;
+		String link = null;
+    	String url = source;
+		
+		if(source.equals(destination))
+		{
+			return;
+		}
 		// download and parse the document
 		Connection conn = Jsoup.connect(url);
 		Document doc = conn.get();
 					
 		// select the content text and pull out the paragraphs.
 		Element content = doc.getElementById("mw-content-text");
-							
-		// TODO: avoid selecting paragraphs from side-bars and box-outs		
+								
 		Elements paras = content.select("p");
-		for( Element each: paras)
+		for( Element paragraph: paras) 
 		{
 			int netOpenP = 0;
-			int netClosedP = 0;
-			int parenthesis = -1;
 				
-			WikiNodeIterable iter = new WikiNodeIterable(each);
+			WikiNodeIterable iter = new WikiNodeIterable(paragraph);
 			for(Node node: iter)
 			{
 				if(node instanceof TextNode)
 				{
-					for(int i = 0; i < each.text().length() ;i++)
+					String text = node.toString();
+					int index = 0;
+					int newIndex = 0;
+					while(index != -1)
 					{
-						if(each.text().contains("("))
+						index = text.indexOf("(", newIndex);
+						if(index != -1)
 						{
 							netOpenP++;
 						}
-						if(each.text().contains(")"))
-						{
-							netClosedP++;
-						}
+						newIndex = index + 1;
 					}
-					parenthesis = netOpenP - netClosedP;
+					index = 0;
+					newIndex = 0;
+					while(index != -1)
+					{
+						index = text.indexOf(")", newIndex);
+						if(index != -1)
+						{
+							netOpenP--;
+						}
+						newIndex = index + 1;
+					}
 				}
+				link = node.attr("href");
 				
-				
-				String link = node.attr("href");
-				
-				
-				if(link.equals(destination) || limit == 0)
-				{
-					return;
-				}
-				if(link != null && (!link.isEmpty()) && (parenthesis == 0))
+				if(link != null && !link.isEmpty() && link.charAt(0) != '#' && netOpenP == 0)
 				{
 					System.out.println(link);
 					link = "https://en.wikipedia.org" + link;
-					testConjecture(destination, link, --limit);
+					linkFound = true;
+					break;
 				}
 			}
+			if (linkFound)
+			{
+				break;
+			}
 		}
+		testConjecture(destination, link, --limit);
     }
 }
