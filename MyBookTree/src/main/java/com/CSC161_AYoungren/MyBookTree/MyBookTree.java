@@ -56,7 +56,6 @@ public class MyBookTree implements Iterable<MyBookNode>{
 				return true;
 			}
 		}
-		
 		return false;
 	}
 	
@@ -68,9 +67,8 @@ public class MyBookTree implements Iterable<MyBookNode>{
 	
 	private class BookNodeIterator implements Iterator<MyBookNode>
 	{
-		private Deque<MyBookNode> stack;
+		Deque<MyBookNode> stack;
 
-		
 		public BookNodeIterator(MyBookNode node) 
 		{
 			stack = new ArrayDeque<MyBookNode>();
@@ -97,5 +95,4 @@ public class MyBookTree implements Iterable<MyBookNode>{
 			return node;
 		}
 	}
-	
 }

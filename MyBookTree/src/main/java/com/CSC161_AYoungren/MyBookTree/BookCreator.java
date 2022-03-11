@@ -1,5 +1,7 @@
 package com.CSC161_AYoungren.MyBookTree;
 
+import java.util.Iterator;
+
 public class BookCreator {
 
 	public static void main(String[] args) {
@@ -40,7 +42,12 @@ public class BookCreator {
 		{
 			System.out.println(node.toString());
 		}
-		
+			//Same as the for loop above
+		Iterator<MyBookNode> iterator = myBook.iterator();
+		while (iterator.hasNext())
+		{
+			System.out.println(iterator.next());
+		}
 	}
 
 }
