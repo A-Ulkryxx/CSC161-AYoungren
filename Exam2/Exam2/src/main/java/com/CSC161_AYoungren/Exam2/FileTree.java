@@ -3,15 +3,15 @@ package com.CSC161_AYoungren.Exam2;
 import java.io.File;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Deque;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Queue;
+
 
 public class FileTree implements Iterable <FileNode> {
 
 	private FileNode root;
+	
 	
 	public FileTree(String path) {
 		root = new FileNode(path);
@@ -63,31 +63,45 @@ public class FileTree implements Iterable <FileNode> {
 	 */
 	private class DepthFirstIterator implements Iterator<FileNode> 
 	{
-		Deque<FileNode> stack;
+		private Deque<FileNode> s1;
+		private Deque<FileNode> s2;
 		
 		public DepthFirstIterator() 
 		{
-			stack = new ArrayDeque<FileNode>();
-			stack.push(root);
+			s1 = new ArrayDeque<FileNode>();
+			s2 = new ArrayDeque<FileNode>();
+			s1.push(root);
 		}
 
 		@Override
 		public boolean hasNext() 
 		{
-			return !stack.isEmpty();
+			if(!s1.isEmpty())
+			{
+				return true;
+			}
+			if(!s2.isEmpty())
+			{
+				return true;
+			}
+			return false;
 		}
 		
 		@Override
 		public FileNode next() 
 		{
-			FileNode node = stack.pop();
+			FileNode node;
 			
-			List<FileNode> nodes = new ArrayList<FileNode>(node.getChildNodes());
-			Collections.reverse(nodes);
-			for(FileNode child: nodes)
-			{
-				stack.push(child);
+			while(!s1.isEmpty())
+			{ 
+				node = s1.pop();
+				s2.push(node);
+				for(FileNode temp : node.getChildNodes())
+				{
+					s1.push(temp);
+				}
 			}
+			node = s2.pop();
 			return node;
 		}
 	}
@@ -106,7 +120,8 @@ public class FileTree implements Iterable <FileNode> {
 	 * Iterator that does a breadth first traversal of the tree using a queue.
 	 * 
 	 */
-	private class BreadthFirstIterator implements Iterator<FileNode> {
+	private class BreadthFirstIterator implements Iterator<FileNode> 
+	{
 		Queue<FileNode> queue;
 		
 		public BreadthFirstIterator() 
@@ -117,14 +132,20 @@ public class FileTree implements Iterable <FileNode> {
 		
 		@Override
 		public boolean hasNext() {
-			return true;
+			return !queue.isEmpty();
 		}
 
 		@Override
 		public FileNode next() {
+			FileNode node;
 			while(!queue.isEmpty())
 			{
-				
+				node = queue.poll();
+				for(FileNode temp: node.getChildNodes())
+				{
+					queue.add(temp);
+				}
+				return node;
 			}
 			return null;
 		}

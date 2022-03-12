@@ -8,7 +8,7 @@ public class FileSizeFinder {
 
 	public static void main(String[] args) {
 
-		String filePath = "C:\\CSC161\\FileSizeTest" ;
+		String filePath = "D:\\FileSizeTest";
 		
 		File file = new File(filePath);
 		
@@ -31,19 +31,12 @@ public class FileSizeFinder {
 			}
 		}
 		
-		System.out.println("========================================DepthFirst=============================================");
-		Iterator<FileNode> iterator = tree.iterator();
-		while (iterator.hasNext())
-		{
-			System.out.println(iterator.next());
-		}
-		
 		System.out.println("===============================================================================================");
 		System.out.println("Breadth first listing of files");
-//		Iterator<FileNode> iterator = tree.breadthFirstIterator();
-//		while (iterator.hasNext()) {
-//			System.out.println(iterator.next());
-//		}
+		Iterator<FileNode> iterator = tree.breadthFirstIterator();
+		while (iterator.hasNext()) {
+			System.out.println(iterator.next());
+		}
 	}
 
 }
