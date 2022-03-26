@@ -41,6 +41,7 @@ public class MyHashMap<K, V> implements Map<K, V> {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public MyHashMap()
 	{
 		buckets = new LinkedList[INITIAL_NUM_BUCKETS];
@@ -112,11 +113,18 @@ public class MyHashMap<K, V> implements Map<K, V> {
 				entry.value = value;
 				return oldValue;
 			}
+			if((size/buckets.length) >= loadFactorThreshold)
+			{
+				
+			}
 		}
 		// Check if load factor has been exceeded and take action
-		//double buckets(now array then copy)-do not copy into same bucket, call put function for new hash code
+		//double buckets(new array then copy)-do not copy into same bucket 
+		//call put function for new hash code
 		//free up old array after this action
 		//write new method called re-hash
+		
+		
 		
 		if(buckets[bucketIndex] == null)
 		{
@@ -129,6 +137,14 @@ public class MyHashMap<K, V> implements Map<K, V> {
 		return value;
 	}
 
+	private LinkedList<Entry<K,V>> increaseCap(LinkedList<Entry<K,V>> oldBuckets)
+	{
+		LinkedList<Entry<K,V>> newBuckets;
+		
+		
+		return newBuckets;
+	}
+	
 	@Override
 	public V remove(Object key) {
 		int bucketIndex = Math.abs(key.hashCode()) % buckets.length;
