@@ -107,13 +107,16 @@ public class MyHashMapSA<K, V> implements Map<K, V> {
 	public V put(K key, V value) {
 		int bucketIndex = Math.abs(key.hashCode()) % buckets.length;
 		LinkedList<Map.Entry<K, V>> bucket = buckets[bucketIndex];
-		for(Map.Entry<K, V> entry: bucket)
+		if (bucket != null) 
 		{
-			if(entry.getKey().equals(key))
+			for(Map.Entry<K, V> entry: bucket)
 			{
-				return entry.setValue(value);
-			}
+				if(entry.getKey().equals(key))
+				{
+					return entry.setValue(value);
+				}
 			
+			}
 		}
 		// Check if load factor has been exceeded and take action
 		if((size/buckets.length) >= loadFactorThreshold)
@@ -144,9 +147,11 @@ public class MyHashMapSA<K, V> implements Map<K, V> {
 			//call put function for new hash code
 		for(int i = 0; i < newBuckets.length; i++)
 		{
-			for(Map.Entry<K, V> entry: newBuckets[i])
-			{
-				put(entry.getKey(), entry.getValue());
+			if (newBuckets[i] != null) {
+				for(Map.Entry<K, V> entry: newBuckets[i])
+				{
+					put(entry.getKey(), entry.getValue());
+				}
 			}
 		}
 			//free up old array after this action
