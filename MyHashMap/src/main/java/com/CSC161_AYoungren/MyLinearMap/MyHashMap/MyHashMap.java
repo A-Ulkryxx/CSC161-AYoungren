@@ -10,7 +10,7 @@ public class MyHashMap<K, V> implements Map<K, V> {
 	
 	private static int INITIAL_NUM_BUCKETS = 4;
 	private int size = 0;
-	private double loadFactorThreshold = 0.5;
+	private final double loadFactorThreshold = 0.5;
 	private LinkedList<Entry<K, V>> [] buckets;
 	
 	public static class Entry<K, V> implements Map.Entry<K, V>
@@ -41,10 +41,10 @@ public class MyHashMap<K, V> implements Map<K, V> {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
+	
 	public MyHashMap()
 	{
-		buckets = new LinkedList[INITIAL_NUM_BUCKETS];
+		buckets = new LinkedList<Entry<K, V>>[INITIAL_NUM_BUCKETS];
 	}
 	
 	@Override
@@ -56,7 +56,7 @@ public class MyHashMap<K, V> implements Map<K, V> {
 	@Override
 	public boolean isEmpty() 
 	{
-		return size == 0;
+		return (size == 0);
 	}
 
 	@Override
@@ -113,18 +113,12 @@ public class MyHashMap<K, V> implements Map<K, V> {
 				entry.value = value;
 				return oldValue;
 			}
+				// Check if load factor has been exceeded and take action
 			if((size/buckets.length) >= loadFactorThreshold)
 			{
-				
+				reHash();
 			}
 		}
-		// Check if load factor has been exceeded and take action
-		//double buckets(new array then copy)-do not copy into same bucket 
-		//call put function for new hash code
-		//free up old array after this action
-		//write new method called re-hash
-		
-		
 		
 		if(buckets[bucketIndex] == null)
 		{
@@ -137,12 +131,24 @@ public class MyHashMap<K, V> implements Map<K, V> {
 		return value;
 	}
 
-	private LinkedList<Entry<K,V>> increaseCap(LinkedList<Entry<K,V>> oldBuckets)
+		//write new method called re-hash
+	@SuppressWarnings("unchecked")
+	private void reHash()
 	{
-		LinkedList<Entry<K,V>> newBuckets;
-		
-		
-		return newBuckets;
+		int newBucketsLength = (buckets.length * 2);
+			//double buckets(new array then copy)-do not copy into same bucket 
+		LinkedList<Entry<K,V>>[] newBuckets = buckets;
+		buckets = new LinkedList[newBucketsLength];
+			//call put function for new hash code
+		for(int i = 0; i < newBuckets.length; i++)
+		{
+			for(Entry<K, V> entry: newBuckets[i])
+			{
+				put(entry.getKey(), entry.getValue());
+			}
+		}
+			//free up old array after this action
+		newBuckets = null;
 	}
 	
 	@Override
@@ -185,6 +191,7 @@ public class MyHashMap<K, V> implements Map<K, V> {
 		
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public Set keySet() {
 		Set<K> set = new HashSet<K>();
