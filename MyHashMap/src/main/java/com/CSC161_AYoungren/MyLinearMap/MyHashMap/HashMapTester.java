@@ -4,7 +4,7 @@ public class HashMapTester {
 
 	public static void main(String[] args) {
 		
-		MyHashMap<String, String> cities = new MyHashMap<String, String>(); 
+		MyHashMapSA<String, String> cities = new MyHashMapSA<String, String>(); 
 		
 		cities.put("United States", "Denver");
 		cities.put("United States", "Washington DC");
@@ -14,7 +14,7 @@ public class HashMapTester {
 		cities.put("France", "Paris");
 		cities.put("Sweden", "Stockholm");
 		
-		System.out.println(cities);
+		System.out.println(cities.entrySet());
 
 	}
 
