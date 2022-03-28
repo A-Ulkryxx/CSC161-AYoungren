@@ -54,13 +54,7 @@ public class MyArrayList<T> implements List<T> {
 	@Override
 	public boolean add(T element) {
 		 T[] tempArray;
-		 for(int i = 0; i < array.length; i++)
-		 {
-			 if(equals(array[i], element))
-			 {
-				 return false;
-			 }
-		 }
+		
 		 if( size >= array.length)
 		 {
 			 tempArray = array;
@@ -262,17 +256,17 @@ public class MyArrayList<T> implements List<T> {
 	 */
 	@Override
 	public T set(int index, T element) {
-		T tempVar1;
-//		T tempVar2; //Left here for note purposes
-		tempVar1 = array[index];
-		array[index] = element;
-//		for(int i = (index + 1); i < array.length; i++) //Left here for note purposes
-//		{
-//			tempVar2 = array[i];
-//			array[i] = tempVar1;
-//			tempVar1 = tempVar2;
-//		}
-		return tempVar1;
+		T tempVar;
+		if(index > size)
+		{
+			throw new IndexOutOfBoundsException("Index " + index + " is out of bounds"); 
+		}
+		else
+		{
+			tempVar = array[index];
+			array[index] = element;
+			return tempVar;
+		}
 	}
 
 	@Override

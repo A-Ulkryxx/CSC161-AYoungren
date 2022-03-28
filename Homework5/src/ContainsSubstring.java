@@ -13,7 +13,7 @@ public class ContainsSubstring {
 		System.out.println("What is the second String to be compared?");
 		s2 = input.nextLine();
 		matchIndex = compareSub(s1, s2);
-		if(matchIndex > 1)
+		if(matchIndex > 0)
 		{
 		System.out.println("String \"" + s1 + "\" and String \"" + s2 + "\" match at index: " + matchIndex);
 		}
@@ -27,20 +27,26 @@ public class ContainsSubstring {
 
 	public static int compareSub(String str1, String str2)
 	{
-		char [] comp1;
-		char [] comp2;
-		
-		comp1 = str1.toCharArray();
-		comp2 = str2.toCharArray();
-		for(int i = 0; i < comp2.length; i++) //Complexity possibility of O(n^2)
+		char [] comp1 = str1.toCharArray();
+		char [] comp2 = str2.toCharArray();
+		int j = 0;
+		int i = 0;
+		for(; i < comp1.length; i++) 
 		{
-			for(int j = 0; j < comp1.length; j++ )
+			if(j == comp2.length)
 			{
-				if(comp1[j] == (comp2[i]))
-				{
-					return j;
-				}
-			} 
+				return -1;
+			}
+			if(( comp1[i] == comp2[j]) && ( comp1[i + (comp2.length - 1)] == comp2[comp2.length - 1] ) )
+			{
+				return i;
+			}
+			if(i == (comp1.length - 1))
+			{
+				i = 0;
+				j++;
+			}
+			 
 		}
 		
 		return -1;
