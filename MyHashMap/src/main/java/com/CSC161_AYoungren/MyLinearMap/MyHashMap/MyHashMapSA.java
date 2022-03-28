@@ -46,7 +46,7 @@ public class MyHashMapSA<K, V> implements Map<K, V> {
 	@SuppressWarnings("unchecked")
 	public MyHashMapSA()
 	{
-		buckets = new LinkedList[INITIAL_NUM_BUCKETS];
+		this.buckets = new LinkedList[INITIAL_NUM_BUCKETS];
 	}
 	
 	@Override
@@ -72,11 +72,11 @@ public class MyHashMapSA<K, V> implements Map<K, V> {
 
 	@Override
 	public boolean containsValue(Object value) {
-		for(int i = 0; i < buckets.length; i++)
+		for(int i = 0; i < this.buckets.length; i++)
 		{
-			if(buckets[i] != null)
+			if(this.buckets[i] != null)
 			{
-				LinkedList<Map.Entry<K, V>> bucket = buckets[i];
+				LinkedList<Map.Entry<K, V>> bucket = this.buckets[i];
 				for(Map.Entry<K, V> entry: bucket)
 				{
 					if(entry.getValue().equals(value))
@@ -91,8 +91,8 @@ public class MyHashMapSA<K, V> implements Map<K, V> {
 
 	@Override
 	public V get(Object key) {
-		int bucketIndex = Math.abs(key.hashCode()) % buckets.length;
-		LinkedList<Map.Entry<K, V>> bucket = buckets[bucketIndex];
+		int bucketIndex = Math.abs(key.hashCode()) % this.buckets.length;
+		LinkedList<Map.Entry<K, V>> bucket = this.buckets[bucketIndex];
 		for(Map.Entry<K, V> entry : bucket)
 		{
 			if(entry.getKey().equals(key))
@@ -105,32 +105,30 @@ public class MyHashMapSA<K, V> implements Map<K, V> {
 
 	@Override
 	public V put(K key, V value) {
-		int bucketIndex = Math.abs(key.hashCode()) % buckets.length;
-		LinkedList<Map.Entry<K, V>> bucket = buckets[bucketIndex];
-		if (bucket != null) 
-		{
-			for(Map.Entry<K, V> entry: bucket)
-			{
-				if(entry.getKey().equals(key))
-				{
-					return entry.setValue(value);
-				}
-			
-			}
-		}
 		// Check if load factor has been exceeded and take action
-		if((size/buckets.length) >= loadFactorThreshold)
+		if(((double)(size/this.buckets.length)) >= loadFactorThreshold)
 		{
 			reHash();
 		}
-				
-		if(buckets[bucketIndex] == null)
+		
+		int bucketIndex = Math.abs(key.hashCode()) % this.buckets.length;
+		
+		
+		if(this.buckets[bucketIndex] == null)
 		{
-			buckets[bucketIndex] = new LinkedList<Map.Entry<K, V>>();
+			this.buckets[bucketIndex] = new LinkedList<Map.Entry<K, V>>();
+			this.buckets[bucketIndex].add(new Entry<K,V>(key,value));
 		}
-		
-		
-		buckets[bucketIndex].add(new Entry<K,V>(key,value));
+			
+		for(Map.Entry<K, V> entry: buckets[bucketIndex])
+		{
+			if(entry.getKey().equals(key))
+			{
+				return entry.setValue(value);
+			}
+			
+		}
+		this.buckets[bucketIndex].add(new Entry<K,V>(key,value));
 		size++;
 		
 		return value;
@@ -140,28 +138,27 @@ public class MyHashMapSA<K, V> implements Map<K, V> {
 	@SuppressWarnings("unchecked")
 	private void reHash()
 	{
-		int newBucketsLength = (buckets.length * 2);
 			//double buckets(new array then copy)-do not copy into same bucket 
-		LinkedList<Map.Entry<K, V>>[] newBuckets = buckets;
-		buckets = new LinkedList[newBucketsLength];
+		LinkedList<Map.Entry<K, V>>[] oldBuckets = this.buckets;
+		this.buckets = new LinkedList[oldBuckets.length * 2];
 			//call put function for new hash code
-		for(int i = 0; i < newBuckets.length; i++)
+		for(int i = 0; i < oldBuckets.length; i++)
 		{
-			if (newBuckets[i] != null) {
-				for(Map.Entry<K, V> entry: newBuckets[i])
+			if (oldBuckets[i] != null) {
+				for(Map.Entry<K, V> entry: oldBuckets[i])
 				{
 					put(entry.getKey(), entry.getValue());
 				}
 			}
 		}
 			//free up old array after this action
-		newBuckets = null;
+		oldBuckets = null;
 	}
 	
 	@Override
 	public V remove(Object key) {
-		int bucketIndex = Math.abs(key.hashCode()) % buckets.length;
-		LinkedList<Map.Entry<K,V>> bucket = buckets[bucketIndex]; //pointer, not a copy (handle)
+		int bucketIndex = Math.abs(key.hashCode()) % this.buckets.length;
+		LinkedList<Map.Entry<K,V>> bucket = this.buckets[bucketIndex]; //pointer, not a copy (handle)
 		if(bucket != null)
 		{
 			for(Map.Entry<K, V> entry: bucket)
@@ -191,7 +188,7 @@ public class MyHashMapSA<K, V> implements Map<K, V> {
 	@Override
 	public void clear() {
 		size = 0;
-		for(@SuppressWarnings("unused") LinkedList<Map.Entry<K,V>> bucket : buckets)
+		for(@SuppressWarnings("unused") LinkedList<Map.Entry<K,V>> bucket : this.buckets)
 		{
 			bucket = null;
 		}
@@ -202,11 +199,11 @@ public class MyHashMapSA<K, V> implements Map<K, V> {
 	@Override
 	public Set keySet() {
 		Set<K> set = new HashSet<K>();
-		for(int i =0; i < buckets.length; i++)
+		for(int i =0; i < this.buckets.length; i++)
 		{
-			if(buckets[i] != null)
+			if(this.buckets[i] != null)
 			{
-				LinkedList<Map.Entry<K, V>> bucket = buckets[i];
+				LinkedList<Map.Entry<K, V>> bucket = this.buckets[i];
 				for(Map.Entry<K,V> entry: bucket)
 				{
 					set.add(entry.getKey());
@@ -225,18 +222,18 @@ public class MyHashMapSA<K, V> implements Map<K, V> {
 	@Override
 	public Set <Map.Entry<K,V>>entrySet() {
 		Set<java.util.Map.Entry<K, V>> set = new HashSet<Map.Entry<K,V>>();
-		for(int i =0; i < buckets.length; i++)
+		for(int i =0; i < this.buckets.length; i++)
 		{
-			if(buckets[i] != null)
+			if(this.buckets[i] != null)
 			{
-				LinkedList<Map.Entry<K,V>> bucket = buckets[i];
+				LinkedList<Map.Entry<K,V>> bucket = this.buckets[i];
 				for(Map.Entry<K,V> entry: bucket)
 				{
 					set.add(entry);
 				}
 			}
 		}
-		return null;
+		return set;
 	}
 
 	

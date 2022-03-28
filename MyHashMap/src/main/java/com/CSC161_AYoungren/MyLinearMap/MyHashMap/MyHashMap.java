@@ -114,11 +114,11 @@ public class MyHashMap<K, V> implements Map<K, V> {
 		LinkedList<Entry<K,V>> bucket = buckets.get(bucketIndex);
 		// Check if load factor has been exceeded and take action
 		
-//		if(bucket == null)
-//		{
-//			bucket = new LinkedList<Entry<K,V>>();
-//			buckets.add(bucketIndex, bucket);
-//		}
+		if(bucket == null)
+		{
+			bucket = new LinkedList<Entry<K,V>>();
+			buckets.add(bucketIndex, bucket);
+		}
 		
 		for(Entry<K,V>entry: bucket)
 		{
@@ -209,25 +209,25 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
 	@Override
 	public Collection values() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
-	public Set <Map.Entry<K,V>>entrySet() {
+	public Set <Map.Entry<K,V>> entrySet() {
 		Set<java.util.Map.Entry<K, V>> set = new HashSet<Map.Entry<K,V>>();
-		for(int i =0; i < buckets.size(); i++)
+		for(int i =0; i < this.buckets.size(); i++)
 		{
-			if(buckets.get(i) != null)
+			if(this.buckets.get(i) != null)
 			{
-				LinkedList<Entry<K,V>> bucket = buckets.get(i);
+				LinkedList<Entry<K,V>> bucket = this.buckets.get(i);
 				for(Entry<K,V> entry: bucket)
 				{
 					set.add(entry);
 				}
 			}
 		}
-		return null;
+		return set;
 	}
 
 	
