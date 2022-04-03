@@ -1,13 +1,15 @@
 package com.CSC161_AYoungren.MyTreeMap.MyTreeMap;
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+//Add the functionality (method)  to remove a node from a Binary Search Tree to the MyBST (TreeMap) implemented in class. 
+//You will need to wait till we do the implementation in class
 
+@SuppressWarnings("rawtypes")
 public class MyTreeMap<K, V> implements Map<K, V>, 
 	Iterable<com.CSC161_AYoungren.MyTreeMap.MyTreeMap.MyTreeMap.Node> 
 {
@@ -33,25 +35,46 @@ public class MyTreeMap<K, V> implements Map<K, V>,
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return (root == null);
 	}
 
 	@Override
 	public boolean containsKey(Object key) {
-		// TODO Auto-generated method stub
+		if(get(key) != null)
+		{
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public boolean containsValue(Object value) {
-		// TODO Auto-generated method stub
+		Node current = root;
+		@SuppressWarnings("unchecked")
+		Comparable<? super V> v = (Comparable<? super V>) value;
+		while(current != null)
+		{
+			if(v.compareTo(current.value) < 0)
+			{
+				current = current.left;
+			}
+			else if( v.compareTo(current.value) > 0)
+			{
+				current = current.right;
+			}
+			else
+			{
+				return true;
+			}
+		}
+		
 		return false;
 	}
 
 	@Override
 	public V get(Object key) {
 		Node current = root;
+		@SuppressWarnings("unchecked")
 		Comparable<? super K> k = (Comparable<? super K>) key;
 		
 		while(current != null)
@@ -84,6 +107,7 @@ public class MyTreeMap<K, V> implements Map<K, V>,
 		Node parent = null;
 		Node current = root;
 		
+		@SuppressWarnings("unchecked")
 		Comparable<? super K> k = (Comparable<? super K>) key;
 		while(current != null)
 		{
@@ -115,10 +139,97 @@ public class MyTreeMap<K, V> implements Map<K, V>,
 		return value;
 	}
 
+	
 	@Override
 	public V remove(Object key) {
-		// TODO Auto-generated method stub
+		if(root == null)
+		{
+			return null;
+		}
+		Node parent = null;
+		Node current = root;
+		@SuppressWarnings("unchecked")
+		Comparable<? super K> k = (Comparable<? super K>) key;
+		
+		while(current != null)
+		{
+			if(k.compareTo(current.key) < 0)
+			{
+				parent = current;
+				current = current.left;
+			}
+			else if( k.compareTo(current.key) > 0)
+			{
+				parent = current;
+				current = current.right;
+			}
+			else
+			{
+				break;
+			}
+		}
+		V value;
+		if((current.left == null) && (current.right == null))
+		{
+			value = current.value;
+			current = null;
+			return value;
+		}
+		if((current.left != null) || (current.right != null))
+		{
+			Node nonBeing = current;
+			
+			if(parent.right == nonBeing)
+			{
+				current = replacement(nonBeing);
+				current.left = nonBeing.left;
+				current.right = nonBeing.right;
+				parent.right = current;
+				value = nonBeing.value;
+				return value;
+			}
+			if(parent.left == nonBeing)
+			{
+				parent.right = current;
+				current = replacement(nonBeing);
+				current.left = nonBeing.left;
+				current.right = nonBeing.right;
+				value = nonBeing.value;
+				return value;
+			}
+			
+		}
 		return null;
+	}
+	/**
+	 * A method that takes a node and iterates through its children to find best suitable replacement.
+	 * If a left branch exists, it will find the highest valued node key in that path(priority path)
+	 * @author Austin Youngren
+	 * @param node - a node intended for removal: 
+	 * @return replacer - returns a replacement node of closest key value of sent node
+	 */
+	private Node replacement(Node node)
+	{
+		Node replacer;
+		if(node.left != null)
+		{
+			node = node.left;
+			while(node.right != null)
+			{
+				node = node.right;
+			}
+			replacer = node;
+		}
+		else
+		{
+			node = node.right;
+			while(node.left != null)
+			{
+				node = node.left;
+			}
+			replacer = node;
+		}
+		return replacer;
 	}
 
 	@Override
@@ -151,17 +262,18 @@ public class MyTreeMap<K, V> implements Map<K, V>,
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Iterator iterator() {
-		return new inOrderIterator();
+		return new InOrderIterator();
 	}
 
-	private class inOrderIterator implements Iterator<Node>
+	private class InOrderIterator implements Iterator<Node>
 	{
 		private ArrayList<Node> list = new ArrayList<>();
 		private int currentIndex = 0;
 		
-		public inOrderIterator()
+		public InOrderIterator()
 		{
 			inOrder(root);
 		}

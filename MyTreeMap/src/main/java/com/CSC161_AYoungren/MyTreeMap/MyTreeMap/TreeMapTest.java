@@ -29,6 +29,13 @@ public class TreeMapTest {
 		{
 			System.out.println(node.key.toString() + " ");
 		}
+		
+		map.remove(3);
+		
+		for(Node node: map)
+		{
+			System.out.println(node.key.toString() + " ");
+		}
 	}
 
 }

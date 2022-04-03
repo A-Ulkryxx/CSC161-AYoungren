@@ -160,7 +160,7 @@ public class MyHashMap<K, V> implements Map<K, V> {
 				if(entry.getKey().equals(key))
 				{
 					V oldValue = entry.getValue();
-					bucket.remove(entry);
+					bucket = null;
 					size--;
 					return oldValue;
 				}
