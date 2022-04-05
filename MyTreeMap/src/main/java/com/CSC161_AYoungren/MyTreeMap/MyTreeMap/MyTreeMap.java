@@ -211,13 +211,16 @@ public class MyTreeMap<K, V> implements Map<K, V>,
 	private Node replacement(Node node)
 	{
 		Node replacer;
+		Node parent = null;
 		if(node.left != null)
 		{
 			node = node.left;
 			while(node.right != null)
 			{
+				parent = node;
 				node = node.right;
 			}
+			parent.right = null;
 			replacer = node;
 		}
 		else
@@ -225,10 +228,13 @@ public class MyTreeMap<K, V> implements Map<K, V>,
 			node = node.right;
 			while(node.left != null)
 			{
+				parent = node;
 				node = node.left;
 			}
+			parent.left = null;
 			replacer = node;
 		}
+		
 		return replacer;
 	}
 
