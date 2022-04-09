@@ -109,18 +109,26 @@ public class MyAVLTree<K, V> implements Map<K, V>,
 		
 		Node parent = null;
 		Node current = root;
-		
+		path.clear();
 		@SuppressWarnings("unchecked")
 		Comparable<? super K> k = (Comparable<? super K>) key;
 		while(current != null)
 		{
 			if(k.compareTo(current.key) < 0)
 			{
+				if(parent != null)
+				{
+					path.add(parent);
+				}
 				parent = current;
 				current = current.left;
 			}
 			else if(k.compareTo(current.key) > 0)
 			{
+				if(parent != null)
+				{
+					path.add(parent);
+				}
 				parent = current;
 				current = current.right;
 			}
@@ -128,16 +136,22 @@ public class MyAVLTree<K, V> implements Map<K, V>,
 				return null;
 			}
 		}
+		path.add(current);
 		
 		Node newNode = new Node(key, value);
 		if(k.compareTo(parent.key) < 0)
 		{
 			parent.left = newNode;
+			balancePath(parent.left);
+			path.add(parent.left);
 		}
 		else
 		{
 			parent.right = newNode;
+			balancePath(parent.right);
+			path.add(parent.right);
 		}
+		
 		size++;
 		return value;
 	}
@@ -263,7 +277,24 @@ public class MyAVLTree<K, V> implements Map<K, V>,
 	
 	private void balanceRR(Node node, Node parent)
 	{
-		//TODO	
+		Node node1 = node.left;
+		if(node == root) {
+			root = node1;
+		}
+		else {
+			if(parent.left == node)
+			{
+				parent.left = node1;
+			}
+			else
+			{
+				parent.right = node1;
+			}
+		}
+		node.left = node1.right;
+		node1.right = node;
+		updateHeight(node);
+		updateHeight(node1);
 	}
 	
 	private void balanceRL(Node node, Node parent)

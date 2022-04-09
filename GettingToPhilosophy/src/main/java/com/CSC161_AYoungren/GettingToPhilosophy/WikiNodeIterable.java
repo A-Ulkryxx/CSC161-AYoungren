@@ -1,8 +1,6 @@
 package com.CSC161_AYoungren.GettingToPhilosophy;
 
-/**
- * 
- */
+
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
