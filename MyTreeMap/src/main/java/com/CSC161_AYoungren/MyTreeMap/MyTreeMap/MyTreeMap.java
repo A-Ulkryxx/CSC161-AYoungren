@@ -151,7 +151,7 @@ public class MyTreeMap<K, V> implements Map<K, V>,
 		@SuppressWarnings("unchecked")
 		Comparable<? super K> k = (Comparable<? super K>) key;
 		
-		while(current != null)
+		while(current.key != null)
 		{
 			if(k.compareTo(current.key) < 0)
 			{
@@ -168,38 +168,79 @@ public class MyTreeMap<K, V> implements Map<K, V>,
 				break;
 			}
 		}
-		V value;
-		if((current.left == null) && (current.right == null))
+		
+		V value = null;
+		if (current != null)
 		{
 			value = current.value;
-			current = null;
+		}
+		else
+		{
 			return value;
 		}
+		
+		if((current.left == null) && (current.right == null))
+		{
+			if(parent.left == current)
+			{
+				parent.left = null;
+			}
+			if(parent.right == current)
+			{
+				parent.right = null;
+			}
+			return value;
+		}
+		
 		if((current.left != null) || (current.right != null))
 		{
 			Node nonBeing = current;
-			
-			if(parent.right == nonBeing)
+			if(parent != null && parent.right == nonBeing)
 			{
+				
 				current = replacement(nonBeing);
-				current.left = nonBeing.left;
-				current.right = nonBeing.right;
 				parent.right = current;
-				value = nonBeing.value;
-				return value;
-			}
-			if(parent.left == nonBeing)
-			{
-				parent.right = current;
-				current = replacement(nonBeing);
-				current.left = nonBeing.left;
-				current.right = nonBeing.right;
-				value = nonBeing.value;
-				return value;
+				if(nonBeing.left != null && nonBeing.left != current)
+				{
+					current.left = nonBeing.left;
+				}
+				if(nonBeing.right != null && nonBeing.right != current)
+				{
+					current.right = nonBeing.right;
+				}
+				
 			}
 			
+			if(parent != null && parent.left == nonBeing)
+			{
+				
+				current = replacement(nonBeing);
+				parent.left = current;
+				if(nonBeing.left != null)
+				{
+					current.left = nonBeing.left;
+				}
+				if(nonBeing.right != null)
+				{
+					current.right = nonBeing.right;
+				}
+			}
+			if(parent == null)
+			{
+				current = replacement(nonBeing);
+				if(nonBeing.left != null)
+				{
+					current.left = nonBeing.left;
+				}
+				if(nonBeing.right != null)
+				{
+					current.right = nonBeing.right;
+				}
+				root = current;
+			}
 		}
-		return null;
+
+		return value;
 	}
 	/**
 	 * A method that takes a node and iterates through its children to find best suitable replacement.
@@ -210,28 +251,45 @@ public class MyTreeMap<K, V> implements Map<K, V>,
 	 */
 	private Node replacement(Node node)
 	{
+		Node nonBeing = node;
 		Node replacer;
 		Node parent = null;
 		if(node.left != null)
 		{
+			parent = node;
 			node = node.left;
 			while(node.right != null)
 			{
 				parent = node;
 				node = node.right;
 			}
-			parent.right = null;
+			if(parent == nonBeing)
+			{
+				nonBeing.left = node.left;
+			}
+			else
+			{
+				parent.right = null;
+			}
 			replacer = node;
 		}
 		else
 		{
+			parent = node;
 			node = node.right;
 			while(node.left != null)
 			{
 				parent = node;
 				node = node.left;
 			}
-			parent.left = null;
+			if(parent == nonBeing)
+			{
+				nonBeing.right = node.right;
+			}
+			else
+			{
+				parent.left = null;
+			}
 			replacer = node;
 		}
 		

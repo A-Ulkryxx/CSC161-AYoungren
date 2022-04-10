@@ -22,26 +22,29 @@ public class TreeMapTestEval {
 		map.put(13, 13);
 		map.put(15, 15);
 
+		
 		printInOrder(map);
 		
+		System.out.println();
+		
 		map.remove(5);
-
+		System.out.println("Remove 5");
 		printInOrder(map);
 		
 		map.remove(6);
-
+		System.out.println("Remove 6");
 		printInOrder(map);
 		
 		map.remove(3);
-
+		System.out.println("Remove 3");
 		printInOrder(map);
 		
 		map.remove(4);
-
+		System.out.println("Remove 4");
 		printInOrder(map);
 		
 		map.remove(8);
-		
+		System.out.println("Remove 8");
 		printInOrder(map);
 		
 	}

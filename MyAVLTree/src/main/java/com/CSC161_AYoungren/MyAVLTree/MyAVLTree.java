@@ -1,3 +1,6 @@
+
+
+
 package com.CSC161_AYoungren.MyAVLTree;
 
 
@@ -100,58 +103,50 @@ public class MyAVLTree<K, V> implements Map<K, V>,
 
 	@Override
 	public V put(K key, V value) {
+		
 		if(root == null) {
 			Node newNode = new Node(key, value);
 			root = newNode;
+			path = new ArrayList<>();
+			path.add(root);
 			size++;
 			return value;
 		}
 		
 		Node parent = null;
 		Node current = root;
-		path.clear();
+		
 		@SuppressWarnings("unchecked")
 		Comparable<? super K> k = (Comparable<? super K>) key;
 		while(current != null)
 		{
 			if(k.compareTo(current.key) < 0)
 			{
-				if(parent != null)
-				{
-					path.add(parent);
-				}
 				parent = current;
 				current = current.left;
 			}
 			else if(k.compareTo(current.key) > 0)
 			{
-				if(parent != null)
-				{
-					path.add(parent);
-				}
 				parent = current;
 				current = current.right;
 			}
 			else {
 				return null;
 			}
+			path.add(parent);
 		}
-		path.add(current);
 		
 		Node newNode = new Node(key, value);
 		if(k.compareTo(parent.key) < 0)
 		{
 			parent.left = newNode;
-			balancePath(parent.left);
-			path.add(parent.left);
 		}
 		else
 		{
-			parent.right = newNode;
-			balancePath(parent.right);
-			path.add(parent.right);
+			parent.right = newNode;;
 		}
-		
+		path.add(newNode);
+		balancePath();
 		size++;
 		return value;
 	}
@@ -190,12 +185,16 @@ public class MyAVLTree<K, V> implements Map<K, V>,
 	}
 	
 	@SuppressWarnings("unused")
-	private void balancePath(Node node) {
+	private void balancePath() {
 		for(int i = path.size() - 1; i >= 0;i--)
 		{
 			Node current = path.get(i);
-			updateHeight(current);
-			Node parent = path.get(i - 1);
+			Node parent = null;
+			
+			if(i != 0)
+			{
+				parent = path.get(i - 1);
+			}
 			switch (balanceFactor(current))
 			{
 			case -2:
@@ -267,7 +266,6 @@ public class MyAVLTree<K, V> implements Map<K, V>,
 			node1.right = node2.left;
 			//node2.left = node1;
 			node2.right = node;
-			node2.right = node;
 			
 			updateHeight(node);
 			updateHeight(node1);
@@ -277,29 +275,54 @@ public class MyAVLTree<K, V> implements Map<K, V>,
 	
 	private void balanceRR(Node node, Node parent)
 	{
-		Node node1 = node.left;
+		Node node1 = node.right;
 		if(node == root) {
 			root = node1;
 		}
 		else {
-			if(parent.left == node)
-			{
-				parent.left = node1;
-			}
-			else
+			if(parent.right == node)
 			{
 				parent.right = node1;
 			}
+			else
+			{
+				parent.left = node1;
+			}
 		}
-		node.left = node1.right;
-		node1.right = node;
+		node.right = node1.left;
+		node1.left = node;
 		updateHeight(node);
 		updateHeight(node1);
 	}
 	
 	private void balanceRL(Node node, Node parent)
 	{
-		//TODO
+		Node node1 = node.right;
+		Node node2 = node1.left;
+		
+		if(node == root)
+		{
+			root = node2;
+		}
+		else
+		{
+			if(parent.right == node)
+			{
+				parent.right = node2;
+			}
+			else
+			{
+				parent.left = node2;
+			}
+			node.right = node2.left;
+			node1.left = node2.right;
+			//node2.left = node1;
+			node2.left = node;
+			
+			updateHeight(node);
+			updateHeight(node1);
+			updateHeight(node2);
+		}
 	}
 	
 	@Override
@@ -334,7 +357,10 @@ public class MyAVLTree<K, V> implements Map<K, V>,
 		if((current.left == null) && (current.right == null))
 		{
 			value = current.value;
+			path.remove(current);
 			current = null;
+			size--;
+			balancePath();
 			return value;
 		}
 		if((current.left != null) || (current.right != null))
@@ -348,6 +374,9 @@ public class MyAVLTree<K, V> implements Map<K, V>,
 				current.right = nonBeing.right;
 				parent.right = current;
 				value = nonBeing.value;
+				path.remove(nonBeing);
+				size--;
+				balancePath();
 				return value;
 			}
 			if(parent.left == nonBeing)
@@ -357,6 +386,9 @@ public class MyAVLTree<K, V> implements Map<K, V>,
 				current.left = nonBeing.left;
 				current.right = nonBeing.right;
 				value = nonBeing.value;
+				path.remove(nonBeing);
+				size--;
+				balancePath();
 				return value;
 			}
 			
@@ -383,9 +415,8 @@ public class MyAVLTree<K, V> implements Map<K, V>,
 				node = node.right;
 			}
 			parent.right = null;
-			replacer = node;
 		}
-		else
+		else if(node.right != null)
 		{
 			node = node.right;
 			while(node.left != null)
@@ -394,9 +425,10 @@ public class MyAVLTree<K, V> implements Map<K, V>,
 				node = node.left;
 			}
 			parent.left = null;
-			replacer = node;
 		}
-		
+		replacer = node;
+		size--;
+		balancePath();
 		return replacer;
 	}
 
