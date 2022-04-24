@@ -17,6 +17,8 @@ public class GraphTester {
 		Graph<Vertex> graph1 = new Graph<Vertex>(vertices, edges);
 		
 		graph1.printEdges();
+		
+		graph1.dfs(0);
 	}
 
 }

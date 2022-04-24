@@ -146,6 +146,10 @@ public class MyAVLTree<K, V> implements Map<K, V>,
 			parent.right = newNode;;
 		}
 		path.add(newNode);
+		for(Node node: path)
+		{
+			updateHeight(node);
+		}
 		balancePath();
 		size++;
 		return value;
@@ -157,9 +161,13 @@ public class MyAVLTree<K, V> implements Map<K, V>,
 		{
 			node.height = 0;
 		}
-		else if (node.left == null)
+		else if (node.left == null && node.right != null)
 		{
 			node.height = 1 + node.right.height;
+		}
+		else if (node.right == null && node.left != null)
+		{
+			node.height = 1 + node.left.height;
 		}
 		else {
 			node.height = 1 + Math.max(node.left.height, node.right.height);
@@ -239,8 +247,10 @@ public class MyAVLTree<K, V> implements Map<K, V>,
 		}
 		node.left = node1.right;
 		node1.right = node;
-		updateHeight(node);
 		updateHeight(node1);
+		updateHeight(node);
+		updateHeight(parent);
+		
 	}
 	
 	private void balanceLR(Node node, Node parent)
@@ -264,12 +274,13 @@ public class MyAVLTree<K, V> implements Map<K, V>,
 			}
 			node.left = node2.right;
 			node1.right = node2.left;
-			//node2.left = node1;
+			node2.left = node1;
 			node2.right = node;
 			
 			updateHeight(node);
 			updateHeight(node1);
 			updateHeight(node2);
+			updateHeight(parent);
 		}
 	}
 	
@@ -293,6 +304,7 @@ public class MyAVLTree<K, V> implements Map<K, V>,
 		node1.left = node;
 		updateHeight(node);
 		updateHeight(node1);
+		updateHeight(parent);
 	}
 	
 	private void balanceRL(Node node, Node parent)
@@ -316,12 +328,13 @@ public class MyAVLTree<K, V> implements Map<K, V>,
 			}
 			node.right = node2.left;
 			node1.left = node2.right;
-			//node2.left = node1;
+			node2.right = node1;
 			node2.left = node;
 			
 			updateHeight(node);
 			updateHeight(node1);
 			updateHeight(node2);
+			updateHeight(parent);
 		}
 	}
 	

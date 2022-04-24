@@ -1,5 +1,9 @@
 package com.CSC161_AYoungren.Graph;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -12,6 +16,7 @@ public class Graph<V>
 	{
 		public int s;
 		public int d;
+		public boolean visit;
 		public double weight;
 		
 		public Edge(int s, int d) //for non-weighted graphs
@@ -108,17 +113,48 @@ public class Graph<V>
 		}
 	}
 	
-	public List<V> bfs()
-	{
-		//TODO Breadth First
-		//use a queue
-	}
+//	public List<V> bfs()
+//	{
+//		//TODO Breadth First
+//		//use a queue
+//	}
 	
-	public List<V> dfs()
+	
+			//include an input as starting point 
+			//use a stack
+			//no recursion
+	public List<V> dfs(int vert)
 	{
-		//TODO Depth First
-		//include an input as starting point 
-		//use a stack
-		//no recursion
+		Deque<V> stack = new ArrayDeque<V>();
+		List<V> print = new ArrayList<V>();
+		Vector<Boolean> visited = new Vector<Boolean>(vertices.size());
+		for(int i = 0; i < vertices.size(); i++)
+		{
+			visited.add(false);
+		}
+		stack.push(vertices.get(vert));
+		
+		while(stack.isEmpty() == false)
+		{
+			v = stack.;
+			print.add(stack.pop());
+			
+			if(visited.get(v) == false)
+			{
+				visited.add(v, true);
+			}
+			
+			@SuppressWarnings("unchecked")
+			Iterator<List<Graph<V>.Edge>> iterator = neighbors.iterator();
+			if(iterator.hasNext())
+			{
+				v = (int) iterator.next();
+				if(!visited.get(v))
+				{
+					stack.push(vertices.get(v));
+				}
+			}
+		}
+		return print;
 	}
 }
