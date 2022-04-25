@@ -127,12 +127,12 @@ public class Graph<V>
 			vert = queue.peek();
 			print.add(queue.poll());
 			//List<Graph<V>.Edge> neighList = neighbors.get(vert);
-			for(int i = neighbors.size() - 1; i >= 0; i--)
+			for(Edge e: neighbors.get(vert))
 			{
-				if(visited.get(i) == false)
+				if(visited.get(e.d) == false)
 				{
-					visited.set(i, true);
-					queue.add(i);
+					visited.set(e.d, true);
+					queue.add(e.d);
 				}
 			}
 		}
