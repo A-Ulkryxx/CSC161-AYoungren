@@ -51,9 +51,10 @@ public class Graph<V> {
 		createdAdjacencyLists(edges, vertices.size());
 	}
 
+	
 	public void createdAdjacencyLists(int[][] edges, int numberOfVertices) {
 		for (int i = 0; i < edges.length; i++) {
-			addEdge(new Edge(edges[i][0], edges[i][1], edges[i][0] + edges[i][1]));
+			addEdge(new Edge(edges[i][0], edges[i][1], edges[i][2]));
 		}
 	}
 
