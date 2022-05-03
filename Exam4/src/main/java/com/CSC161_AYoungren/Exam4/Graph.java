@@ -89,32 +89,35 @@ public class Graph<V> {
 
 	public Map<V, List<V>> findMinimumSpanningTree() {
 
-		ArrayList<List<V>> sorter = new ArrayList<List<V>>();
+		List<List<V>> sorter = new ArrayList<List<V>>();
 		for(int i = 0; i < neighbors.size(); i++)
 		{
 			List<V> connections = new LinkedList<V>();
 			sorter.add(i, connections);
 		}
 		
-		HashMap<V, List<V>> spanningTree = new HashMap<V, List<V>>();
-		for(int i = 0; i < neighbors.size(); i++)
+		Map<V, List<V>> spanningTree = new HashMap<V, List<V>>();
+		for(int i = 0; i < neighbors.size(); i++) //for every neighbor
 		{
+			
 			if(!neighbors.get(i).isEmpty())
 			{
 				Edge minimumEdge = neighbors.get(i).get(0);
-				for(Edge e: neighbors.get(i))
+				for(Edge e: neighbors.get(i)) //for every edge in neighbor i
 				{
-					if(e.compareTo(minimumEdge) == -1)
+					if(e.compareTo(minimumEdge) < 0) //if edge e is less than minimum edge
 					{
 						minimumEdge = e;
 					}
 				}
 				
-				if(!sorter.get(i).contains(vertices.get(minimumEdge.d)) )
+					// if sorter at I does not contain destination, add destination
+				if(!sorter.get(i).contains(vertices.get(minimumEdge.d)) ) 
 				{
 					sorter.get(i).add(vertices.get(minimumEdge.d));
 				}
-				if(!sorter.get(minimumEdge.d).contains(vertices.get(i)) )
+					//if sorter at value of minEdge destination does not contain verices I, add I
+				if(!sorter.get(minimumEdge.d).contains(vertices.get(i)) )//if 
 				{
 					sorter.get(minimumEdge.d).add(vertices.get(i));	
 				}
